@@ -177,7 +177,7 @@ testWithDelay();
 
 | Method | Set status | Allowed with statuses | Description |
 |--|--|--|--|
-| start | RUNNING | READY | Start the timer. onStart event will be executed. Returns true or false. Input function can take an startObject |
+| start | RUNNING | READY | Start the timer. onStart event will be executed. Returns true or false. Input function can take an **startObject** |
 | stop | COMPLETED | RUNNING| Stop the timer. onStop event will be executed. Returns true or false. |
 | reset | READY | any | Reset timer. Events are not deleted. |
 | setOnEvent | nothing | any | Set event handler. The first parameter is the name of the event. The second parameter is the function handler. |
@@ -203,8 +203,8 @@ Properties are optional.
 |--|--|--|
 | datetimeStart | date | Date start time |
 | datetimeFinish | date | Date stop time. |
-| onStart | date | Function handler start timer. |
-| onStop | date | Function handler stop timer. |
+| onStart | function | Function handler start timer. |
+| onStop | function | Function handler stop timer. |
 | statusList | array | List of statuses. READY, RUNNING, COMPLETED. |
 | status | string | Current status. |
 | partsTime | object | An object containing time units in milliseconds. |
