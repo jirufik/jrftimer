@@ -38,8 +38,10 @@ class JrfTimer {
         await this.setDatetimeStart(datetimeStart);
         if (this._datetimeFinish) {
             await this.setDatetimeFinish(this._datetimeFinish);
-        } else {
+        } else if (datetimeFinish) {
             await this.setDatetimeFinish(datetimeFinish);
+        } else {
+            await this.setDatetimeFinish(this.datetimeFinish);
         }
         this.status = this.statusList.RUNNING;
 
