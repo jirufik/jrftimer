@@ -1,6 +1,6 @@
 {
   "name": "jrftimer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple async/await timer.",
   "main": "jrftimer.js",
   "scripts": {
