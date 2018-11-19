@@ -22,6 +22,7 @@ class JrfTimer {
             D: 1000 * 60 * 60 * 24
         };
         this._isStart = false;
+        this._objTimeout = null;
 
     }
 
@@ -79,6 +80,7 @@ class JrfTimer {
             return false;
         }
 
+        await this._stopTimeout();
         this.status = this.statusList.COMPLETED;
         await this._runEvent('onStop');
 
@@ -88,6 +90,7 @@ class JrfTimer {
 
     async reset() {
 
+        await this._stopTimeout();
         this.datetimeStart = null;
         this._datetimeStart = null;
         this.datetimeFinish = null;
@@ -291,51 +294,60 @@ class JrfTimer {
         let period = await this._getPeriodBetween(datetimeStart, datetimeFinish);
 
         if (period.d > 1) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.D);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.D);
             return;
         }
 
         if (period.h > 1) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.H);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.H);
             return;
         }
 
         if (period.m > 1) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.M);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.M);
             return;
         }
 
         if (period.s > 1) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.S);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.S);
             return;
         }
 
         if (period.ms > 500) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 500);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 500);
             return;
         }
 
         if (period.ms > 100) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 100);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 100);
             return;
         }
 
         if (period.ms > 20) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 20);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 20);
             return;
         }
 
         if (period.ms > 10) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 10);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 10);
             return;
         }
 
         if (period.ms > 4) {
-            setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 4);
+            this._objTimeout = setTimeout(() => this._nextRing(datetimeStart, datetimeFinish, cb), this.partsTime.MS * 4);
             return;
         }
 
         await cb();
+
+    }
+
+    async _stopTimeout() {
+
+        if (this._objTimeout) {
+            clearTimeout(this._objTimeout);
+            this._objTimeout = null;
+        }
 
     }
 
