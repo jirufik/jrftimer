@@ -1,6 +1,6 @@
 # jrftimer
 
-**jrftimer** is a simple **async/await** timer.
+**jrftimer** is a **async/await** timer.
 
 ## Installation
 ```
